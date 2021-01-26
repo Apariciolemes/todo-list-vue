@@ -1,4 +1,20 @@
 # Todo-List
+
+Rodar o projeto
+
+Ao clonar o projeto abra o terminal e execute o comando
+- npm install (instalar as dependências)
+- npm run serve (rodar o projeto)
+
+Rodar o Cypress
+
+Abra o terminal e execute o comando
+- npx cypress open
+
+Rodar o JSON SERVER
+
+link doc https://github.com/typicode/json-server
+
 O que foi utilizado no desenvolvimento deste projeto?
 
 - Vue.js
@@ -36,21 +52,4 @@ Funcionalidades
 
 6-) Limpar Task(s)
 - Só é possível limpar todas as task com o status concluído, a ação deverá fazer a exclusão em massa.
-
-
-Rodar o projeto
-
-Ao clonar o projeto abra o terminal e execute o comando
-- npm install (instalar as dependências)
-- npm run serve (rodar o projeto)
-
-Rodar o Cypress
-
-Abra o terminal e execute o comando
-- npx cypress open
-
-Rodar o JSON SERVER
-
-link doc https://github.com/typicode/json-server
-
 
