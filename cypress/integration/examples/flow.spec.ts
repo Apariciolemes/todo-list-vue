@@ -51,7 +51,7 @@ describe('Check Todo List', () => {
         cy.get('[data-test="selectedType"]').click().type('{downarrow}{enter}')
         cy.get('[data-test="selectedDescription"]').type('BS-4')
         cy.get('[data-test="selectedDate"]').type('26/01/2021')
-        cy.get('[data-test="selectedStatus"]').click({ multiple: false }).type('{downarrow}{downarrow}{downarrow}{enter}')
+        cy.get('[data-test="selectedStatus"]').click({force: true}).type('{downarrow}{downarrow}{downarrow}{enter}')
         cy.get('[data-test="createTask"]').click()
     });
     it('Remove All Conclued', () => {
