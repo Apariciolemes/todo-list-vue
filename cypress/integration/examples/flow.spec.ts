@@ -5,7 +5,7 @@ const baseUrl = "http://localhost:8085/"
 // Teste all end points
 describe('Check Todo List', () => {
     it('Visit index', () => {
-        cy.visit(baseUrl).wait(3000)
+        cy.visit(baseUrl)
     });
     it('Test request Get', () => {
         cy.request(baseUrl)
@@ -15,47 +15,47 @@ describe('Check Todo List', () => {
             });
     });
     it('Create Firts Task', () => {
-        cy.get('[data-test="selectedType"]').click().type('{downarrow}{enter}').wait(1500)
-        cy.get('[data-test="selectedDescription"]').type('BS-1').wait(1500)
-        cy.get('[data-test="selectedDate"]').type('25/01/2021').wait(1500)
-        cy.get('[data-test="selectedStatus"]').type('{downarrow}{enter}').wait(3000)
-        cy.get('[data-test="createTask"]').click({ multiple: false }).wait(3000)
+        cy.get('[data-test="selectedType"]').click().type('{downarrow}{enter}')
+        cy.get('[data-test="selectedDescription"]').type('BS-1')
+        cy.get('[data-test="selectedDate"]').type('25/01/2021')
+        cy.get('[data-test="selectedStatus"]').type('{downarrow}{enter}')
+        cy.get('[data-test="createTask"]').click({ multiple: false })
     });
     it('Create Second Task', () => {
-        cy.get('[data-test="selectedType"]').click().type('{downarrow}{downarrow}{enter}').wait(1500)
-        cy.get('[data-test="selectedDescription"]').type('BS-2').wait(1500)
-        cy.get('[data-test="selectedDate"]').type('26/01/2021').wait(1500)
-        cy.get('[data-test="selectedStatus"]').type('{downarrow}{downarrow}{enter}').wait(3000)
-        cy.get('[data-test="createTask"]').click({ multiple: false }).wait(3000)
+        cy.get('[data-test="selectedType"]').click().type('{downarrow}{downarrow}{enter}')
+        cy.get('[data-test="selectedDescription"]').type('BS-2')
+        cy.get('[data-test="selectedDate"]').type('26/01/2021')
+        cy.get('[data-test="selectedStatus"]').type('{downarrow}{downarrow}{enter}')
+        cy.get('[data-test="createTask"]').click({ multiple: false })
     });
     it('Create Third Task', () => {
-        cy.get('[data-test="selectedType"]').click().type('{downarrow}{downarrow}{enter}').wait(1500)
-        cy.get('[data-test="selectedDescription"]').type('BS-3').wait(1500)
-        cy.get('[data-test="selectedDate"]').type('27/01/2021').wait(1500)
-        cy.get('[data-test="selectedStatus"]').type('{downarrow}{downarrow}{enter}').wait(3000)
-        cy.get('[data-test="createTask"]').click({ multiple: false }).wait(3000)
+        cy.get('[data-test="selectedType"]').click().type('{downarrow}{downarrow}{enter}')
+        cy.get('[data-test="selectedDescription"]').type('BS-3')
+        cy.get('[data-test="selectedDate"]').type('27/01/2021')
+        cy.get('[data-test="selectedStatus"]').type('{downarrow}{downarrow}{enter}')
+        cy.get('[data-test="createTask"]').click({ multiple: false })
     });
     it('Mark Conclued', () => {
-        cy.get('.markConclued').click().wait(4000)
+        cy.get('.markConclued').click()
     });
     it('Edit Document / Valid not changed', () => {
-        cy.get('.editTask').click().wait(2000)
-        cy.get('[data-test="saveEdit"]').click({ multiple: false }).wait(3000)
-        cy.get('[data-test="selectedDescriptionEdit"]').type('-Edit').wait(3000)
-        cy.get('[data-test="saveEdit"]').click({ multiple: false }).wait(3000)
+        cy.get('.editTask').click()
+        cy.get('[data-test="saveEdit"]').click({ multiple: false })
+        cy.get('[data-test="selectedDescriptionEdit"]').type('-Edit')
+        cy.get('[data-test="saveEdit"]').click({ multiple: false })
     });
     it('Remove Task', () => {
-        cy.get('.removeTask').click().wait(3000)
+        cy.get('.removeTask').click()
     });
     it('Create Fourth Task', () => {
-        cy.get('[data-test="selectedType"]').click().type('{downarrow}{enter}').wait(1500)
-        cy.get('[data-test="selectedDescription"]').type('BS-4').wait(1500)
-        cy.get('[data-test="selectedDate"]').type('26/01/2021').wait(1500)
-        cy.get('[data-test="selectedStatus"]').click({ multiple: false }).type('{downarrow}{downarrow}{downarrow}{enter}').wait(3000)
-        cy.get('[data-test="createTask"]').click().wait(3000)
+        cy.get('[data-test="selectedType"]').click().type('{downarrow}{enter}')
+        cy.get('[data-test="selectedDescription"]').type('BS-4')
+        cy.get('[data-test="selectedDate"]').type('26/01/2021')
+        cy.get('[data-test="selectedStatus"]').click({ multiple: false }).type('{downarrow}{downarrow}{downarrow}{enter}')
+        cy.get('[data-test="createTask"]').click()
     });
     it('Remove All Conclued', () => {
-        cy.get('.removeAllTask').click().wait(3000)
+        cy.get('.removeAllTask').click()
     });
 
 });
