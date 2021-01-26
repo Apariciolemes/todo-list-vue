@@ -34,7 +34,7 @@
           />
         </div>
         <div class="item col-3">
-          <h5>Data Conclusão</h5>
+          <h5>Data</h5>
           <Calendar
             data-test="selectedDate"
             v-model="selectedDate"
@@ -221,7 +221,7 @@
 <script lang="ts">
 import Vue from "vue";
 import moment from "moment";
-import CustomTable from "@/components/Table/Table.vue";
+import CustomTable from "@/components/table/Table.vue";
 import {
   getTask,
   addTask,

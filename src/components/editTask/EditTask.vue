@@ -122,7 +122,7 @@ export default Vue.extend({
     parseEdit(): object {
       return {
         type: this.selectedType,
-        date: this.formatDate(this.selectedDate),
+        date:  this.data.date !== this.selectedDate ? this.formatDate(this.selectedDate): this.selectedDate,
         description: this.selectedDescription,
         status: this.selectedStatus,
       };
