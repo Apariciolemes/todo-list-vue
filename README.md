@@ -57,4 +57,6 @@ Abra o terminal e execute o comando
   - link documentação https://momentjs.com/
 - FontAwesome (Gerenciador de ícones)
 - Vue Router (Gerenciamento de rotas)
+- SPA
+- Vue CLI
 
