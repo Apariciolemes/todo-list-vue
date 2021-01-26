@@ -1,6 +1,6 @@
 # Todo-List
 
-Rodar o projeto
+**Rodar o projeto**
 
 Ao clonar o projeto abra o terminal e execute o comando
 
@@ -8,17 +8,17 @@ Ao clonar o projeto abra o terminal e execute o comando
 
 `npm run serve`
 
-Rodar o Cypress
+**Rodar o Cypress**
 
 Abra o terminal e execute o comando
 
 `npx cypress open`
 
-Rodar o JSON SERVER
+**Rodar o JSON SERVER**
 
 link doc https://github.com/typicode/json-server
 
-Funcionalidades
+**Funcionalidades**
 
 1-) Adicionar nova tarefa (POST)
 - Só é possível adicionar uma nova tarefa se todas as informações estiverem preenchidas.
@@ -37,7 +37,7 @@ Funcionalidades
 6-) Limpar Task(s)
 - Só é possível limpar todas as task com o status concluído, a ação deverá fazer a exclusão em massa.
 
-O que foi utilizado no desenvolvimento deste projeto?
+**O que foi utilizado no desenvolvimento deste projeto?**
 
 - Vue.js
 - Typescript
