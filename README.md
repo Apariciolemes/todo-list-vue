@@ -15,7 +15,7 @@ O que foi utilizado no desenvolvimento deste projeto?
 - Eslint
 - Moment (formatação de data)
   - link documentação https://momentjs.com/
-- FontAwesome (Gerenciandor de ícones)
+- FontAwesome (Gerenciador de ícones)
 - Vue Router (Gerenciamento de rotas)
 
 Funcionalidades
