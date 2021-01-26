@@ -206,7 +206,7 @@
       <hr />
       <Button
         label="Limpar task(s)"
-        class="danger"
+        class="danger removeAllTask"
         @click="removeAllConclued"
       />
     </div>

@@ -1,3 +1,5 @@
+import { faClipboardCheck } from "@fortawesome/free-solid-svg-icons";
+
 const baseUrl = "http://localhost:8085/"
 
 // Teste all end points
@@ -44,6 +46,16 @@ describe('Check Todo List', () => {
     });
     it('Remove Task', () => {
         cy.get('.removeTask').click().wait(3000)
+    });
+    it('Create Fourth Task', () => {
+        cy.get('[data-test="selectedType"]').click().type('{downarrow}{enter}').wait(1500)
+        cy.get('[data-test="selectedDescription"]').type('BS-4').wait(1500)
+        cy.get('[data-test="selectedDate"]').type('26/01/2021').wait(1500)
+        cy.get('[data-test="selectedStatus"]').click().type('{downarrow}{downarrow}{downarrow}{enter}').wait(3000)
+        cy.get('[data-test="createTask"]').click({ multiple: false }).wait(3000)
+    });
+    it('Remove All Conclued', () => {
+        cy.get('.removeAllTask').click().wait(3000)
     });
 
 });
