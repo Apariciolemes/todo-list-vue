@@ -46,7 +46,7 @@ Abra o terminal e execute o comando
 - Axios (Consumo de API)
 - PrimeVue (Biblioteca de componentes) 
   -link documentação https://www.primefaces.org/primevue/
-- JSON (Simular servidor)
+- JSON SERVER (Simular servidor)
 - Cypress
   - link documentação https://www.cypress.io/
 - Boostrap
