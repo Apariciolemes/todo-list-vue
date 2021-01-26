@@ -22,13 +22,18 @@ Funcionalidades
 
 1-) Adicionar nova tarefa (POST)
 - Só é possível adicionar uma nova tarefa se todas as informações estiverem preenchidas.
+
 2-) Alterar status para concluído (PATCH)
+
 3-) Editar tarefa (PUT)
 - Só é possível editar as tarefas que não estiverem com o status concluído.
 - Só é possível fazer a edição se tiver algum valor diferente do valor inicial.
+
 4-) Remover task (DELETE)
+
 5-) Filtro
 - É possivel aplicar o filtro por tipo de status, menos as que estão com o status concluído.
+
 6-) Limpar Task(s)
 - Só é possível limpar todas as task com o status concluído, a ação deverá fazer a exclusão em massa.
 
