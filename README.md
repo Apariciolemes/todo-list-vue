@@ -10,6 +10,8 @@ Ao clonar o projeto abra o terminal e execute o comando
 
 **Rodar o Cypress**
 
+Fazer testes unitários, simulando todas as ações de usuário.
+
 Abra o terminal e execute o comando
 
 `npx cypress open`
@@ -45,12 +47,12 @@ link doc https://github.com/typicode/json-server
 - PrimeVue (Biblioteca de componentes) 
   - link documentação https://www.primefaces.org/primevue/
 - JSON (Simular servidor)
-- Cypress (Fazer testes end-to-end, simulando todas as ações de usuário possíveis)
+- Cypress
   - link documentação https://www.cypress.io/
 - Boostrap
 - HTML
-- SCSS
-- Eslint
+- Sass
+- ESlint
 - Moment (formatação de data)
   - link documentação https://momentjs.com/
 - FontAwesome (Gerenciador de ícones)
