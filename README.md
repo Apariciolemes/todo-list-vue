@@ -18,7 +18,7 @@ Abra o terminal e execute o comando
 
 **Rodar o JSON SERVER**
 
-link doc https://github.com/typicode/json-server
+`npm run json:server`
 
 **Funcionalidades**
 
@@ -45,16 +45,16 @@ link doc https://github.com/typicode/json-server
 - Typescript
 - Axios (Consumo de API)
 - PrimeVue (Biblioteca de componentes) 
-  - link documentação https://www.primefaces.org/primevue/
+  -link documentação https://www.primefaces.org/primevue/
 - JSON (Simular servidor)
 - Cypress
-  - link documentação https://www.cypress.io/
+  -link documentação https://www.cypress.io/
 - Boostrap
 - HTML
 - Sass
 - ESlint
 - Moment (formatação de data)
-  - link documentação https://momentjs.com/
+  -link documentação https://momentjs.com/
 - FontAwesome (Gerenciador de ícones)
 - Vue Router (Gerenciamento de rotas)
 
