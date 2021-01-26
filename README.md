@@ -51,7 +51,7 @@ Abra o terminal e execute o comando
   - link documentação https://www.cypress.io/
 - Boostrap
 - HTML
-- Sass
+- SCSS
 - ESlint
 - Moment (formatação de data)
   - link documentação https://momentjs.com/
