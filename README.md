@@ -8,6 +8,10 @@ Ao clonar o projeto abra o terminal e execute o comando
 
 `npm run serve`
 
+**Rodar o JSON SERVER**
+
+`npm run json:server`
+
 **Rodar o Cypress**
 
 Fazer testes unitários, simulando todas as ações de usuário.
@@ -15,10 +19,6 @@ Fazer testes unitários, simulando todas as ações de usuário.
 Abra o terminal e execute o comando
 
 `npx cypress open`
-
-**Rodar o JSON SERVER**
-
-`npm run json:server`
 
 **Funcionalidades**
 
