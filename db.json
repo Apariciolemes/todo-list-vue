@@ -1,18 +1,3 @@
 {
-  "tasks": [
-    {
-      "type": "Feature",
-      "description": "BS-2",
-      "date": "26/01/2021",
-      "status": "Desenvolvimento",
-      "id": 3
-    },
-    {
-      "type": "Feature",
-      "description": "BS-3",
-      "date": "27/01/2021",
-      "status": "Desenvolvimento",
-      "id": 4
-    }
-  ]
+  "tasks": []
 }
