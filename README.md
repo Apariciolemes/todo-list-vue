@@ -11,6 +11,7 @@ Ao clonar o projeto abra o terminal e execute o comando
 Rodar o Cypress
 
 Abra o terminal e execute o comando
+
 `npx cypress open`
 
 Rodar o JSON SERVER
