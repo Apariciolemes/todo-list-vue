@@ -3,8 +3,10 @@
 Rodar o projeto
 
 Ao clonar o projeto abra o terminal e execute o comando
-`npm install (instalar as dependências)`
-`npm run serve (rodar o projeto)`
+
+`npm install`
+
+`npm run serve`
 
 Rodar o Cypress
 
