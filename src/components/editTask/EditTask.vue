@@ -63,6 +63,7 @@
 
 <script lang="ts">
 import Vue from "vue";
+import moment from 'moment';
 import { updateTask } from "@/views/todo-list/service/service";
 
 export default Vue.extend({
@@ -115,10 +116,13 @@ export default Vue.extend({
           });
       }
     },
+    formatDate(date: string): string {
+      return moment(date).format("DD/MM/YYYY");
+    },
     parseEdit(): object {
       return {
         type: this.selectedType,
-        date: this.selectedDate,
+        date: this.formatDate(this.selectedDate),
         description: this.selectedDescription,
         status: this.selectedStatus,
       };
