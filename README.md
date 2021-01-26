@@ -1,5 +1,5 @@
 # Todo-List
-
+.md :risos:
 Rodar o projeto
 
 Ao clonar o projeto abra o terminal e execute o comando
