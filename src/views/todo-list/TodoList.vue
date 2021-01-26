@@ -221,7 +221,7 @@
 <script lang="ts">
 import Vue from "vue";
 import moment from "moment";
-import CustomTable from "@/components/table/Table.vue";
+import CustomTable from "@/components/custom-table/CustomTable.vue";
 import {
   getTask,
   addTask,
