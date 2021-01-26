@@ -15,25 +15,6 @@ Rodar o JSON SERVER
 
 link doc https://github.com/typicode/json-server
 
-O que foi utilizado no desenvolvimento deste projeto?
-
-- Vue.js
-- Typescript
-- Axios (Consumo de API)
-- PrimeVue (Biblioteca de componentes) 
-  - link documentação https://www.primefaces.org/primevue/
-- JSON (Simular servidor)
-- Cypress (Fazer testes end-to-end, simulando todas as ações de usuário possíveis)
-  - link documentação https://www.cypress.io/
-- Boostrap
-- HTML
-- SCSS
-- Eslint
-- Moment (formatação de data)
-  - link documentação https://momentjs.com/
-- FontAwesome (Gerenciador de ícones)
-- Vue Router (Gerenciamento de rotas)
-
 Funcionalidades
 
 1-) Adicionar nova tarefa (POST)
@@ -52,4 +33,23 @@ Funcionalidades
 
 6-) Limpar Task(s)
 - Só é possível limpar todas as task com o status concluído, a ação deverá fazer a exclusão em massa.
+
+O que foi utilizado no desenvolvimento deste projeto?
+
+- Vue.js
+- Typescript
+- Axios (Consumo de API)
+- PrimeVue (Biblioteca de componentes) 
+  - link documentação https://www.primefaces.org/primevue/
+- JSON (Simular servidor)
+- Cypress (Fazer testes end-to-end, simulando todas as ações de usuário possíveis)
+  - link documentação https://www.cypress.io/
+- Boostrap
+- HTML
+- SCSS
+- Eslint
+- Moment (formatação de data)
+  - link documentação https://momentjs.com/
+- FontAwesome (Gerenciador de ícones)
+- Vue Router (Gerenciamento de rotas)
 
