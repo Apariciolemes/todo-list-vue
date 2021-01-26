@@ -48,13 +48,13 @@ Abra o terminal e execute o comando
   -link documentação https://www.primefaces.org/primevue/
 - JSON (Simular servidor)
 - Cypress
-  -link documentação https://www.cypress.io/
+  - link documentação https://www.cypress.io/
 - Boostrap
 - HTML
 - Sass
 - ESlint
 - Moment (formatação de data)
-  -link documentação https://momentjs.com/
+  - link documentação https://momentjs.com/
 - FontAwesome (Gerenciador de ícones)
 - Vue Router (Gerenciamento de rotas)
 
