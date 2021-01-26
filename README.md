@@ -1,15 +1,15 @@
 # Todo-List
-.md :risos:
+
 Rodar o projeto
 
 Ao clonar o projeto abra o terminal e execute o comando
-- npm install (instalar as dependências)
-- npm run serve (rodar o projeto)
+`npm install (instalar as dependências)`
+`npm run serve (rodar o projeto)`
 
 Rodar o Cypress
 
 Abra o terminal e execute o comando
-- npx cypress open
+`npx cypress open`
 
 Rodar o JSON SERVER
 
