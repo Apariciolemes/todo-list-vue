@@ -3,11 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "vue-cli-service serve --port 8085",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
+    "cypress:run": "cypress run",
+    "json:server": "npx json-server --watch db.json"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "1.2.34",
@@ -17,6 +18,7 @@
     "bootstrap": "^4.6.0",
     "bootstrap-vue": "^2.21.2",
     "cypress": "^4.12.1",
+    "json-server": "^0.16.3",
     "moment": "^2.29.1",
     "primeflex": "^2.0.0",
     "primeicons": "^4.0.0",
