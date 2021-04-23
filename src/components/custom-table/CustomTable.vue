@@ -1,27 +1,43 @@
 <template>
   <div>
     <div class="panel-table mt-3">
-      <h2 class="panel-table__title">{{ title }}</h2>
+      <h2 class="panel-table__title">
+        {{ title }}
+      </h2>
       <div
+        v-if="showFilter"
         class="panel-table__filter"
         @click="openSearch = !openSearch"
-        v-if="showFilter"
       >
-        <h3 class="panel-table__filter__title mb-1">Filtro</h3>
-        <span class="pi pi-chevron-down ml-2" :class="{ rotate: openSearch }" />
+        <h3 class="panel-table__filter__title mb-1">
+          Filtro
+        </h3>
+        <span
+          class="pi pi-chevron-down ml-2"
+          :class="{ rotate: openSearch }"
+        />
       </div>
     </div>
     <transition name="fade">
-      <div class="open-filter" v-if="openSearch">
+      <div
+        v-if="openSearch"
+        class="open-filter"
+      >
         <slot name="content-filter" />
       </div>
     </transition>
-    <div class="custom-table w-100" :class="{ 'mt-3': openSearch }">
+    <div
+      class="custom-table w-100"
+      :class="{ 'mt-3': openSearch }"
+    >
       <table class="w-100">
         <thead class="custom-table__heading">
           <tr class="custom-table__heading__row">
             <template v-for="(column, index) in columnsData.columnsToShow">
-              <slot name="heading" :column="column">
+              <slot
+                name="heading"
+                :column="column"
+              >
                 <th :key="`${column}-${index}`">
                   {{ column }}
                 </th>
@@ -52,7 +68,8 @@
   </div>
 </template>
 <script lang="ts">
-import Vue from "vue";
+import Vue from 'vue';
+
 export default Vue.extend({
   props: {
     columnsData: {
@@ -61,7 +78,7 @@ export default Vue.extend({
     },
     title: {
       type: String,
-      default: "",
+      default: '',
     },
     showFilter: {
       type: Boolean,
@@ -74,7 +91,7 @@ export default Vue.extend({
   },
   data() {
     return {
-      openSearch: false as boolean,
+      openSearch: false,
     };
   },
 });
@@ -84,12 +101,15 @@ export default Vue.extend({
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   &__title {
     color: rgba(0, 0, 0, 0.87);
   }
+
   &__filter {
     display: flex;
     align-items: center;
+
     &__title {
       font-size: 14px;
       color: rgba(0, 0, 0, 0.87);

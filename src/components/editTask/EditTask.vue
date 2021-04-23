@@ -1,38 +1,44 @@
 <template>
   <Dialog
     :visible.sync="displayModal"
-    :style="{ width: '80vw' }"
+    :style="{ width: '60vw' }"
     header="Editar Task"
     modal
   >
-    <div class="todo-list__add row pb-5">
+    <div class="todo-list__add row py-5 my-5">
       <div class="item col-3">
         <h5>Tipo</h5>
-        <Dropdown :options="type" class="w-100" v-model="selectedType">
+        <Dropdown
+          v-model="formData.type"
+          :options="typeTask"
+          class="w-100"
+        >
           <template #option="slotProps">
             {{ slotProps.option }}
           </template>
           <template #value="slotProps">
-            <template v-if="selectedType">
+            <template v-if="formData.type">
               {{ slotProps.value }}
             </template>
-            <template v-else> Tipo </template>
+            <template v-else>
+              Tipo
+            </template>
           </template>
         </Dropdown>
       </div>
       <div class="item col-3">
         <h5>Descrição</h5>
         <InputText
+          v-model="formData.description"
+          data-test="DescriptionEdit"
           class="w-100"
-          v-model="selectedDescription"
           placeholder="Descrição"
-          data-test="selectedDescriptionEdit"
         />
       </div>
       <div class="item col-3">
         <h5>Data</h5>
         <Calendar
-          v-model="selectedDate"
+          v-model="formData.date"
           class="w-100"
           date-format="dd/mm/yy"
           placeholder="dd/mm/yy"
@@ -41,120 +47,56 @@
       </div>
       <div class="item col-3">
         <h5>Status</h5>
-        <Dropdown :options="status" class="w-100" v-model="selectedStatus">
+        <Dropdown
+          v-model="formData.status"
+          :options="status"
+          class="w-100"
+        >
           <template #option="slotProps">
             {{ slotProps.option }}
           </template>
           <template #value="slotProps">
-            <template v-if="selectedStatus">
+            <template v-if="status">
               {{ slotProps.value }}
             </template>
-            <template v-else> Status </template>
+            <template v-else>
+              Status
+            </template>
           </template>
         </Dropdown>
       </div>
     </div>
     <template #footer>
-      <Button label="Cancelar" class="danger" @click="displayModal = false" />
-      <Button label="Salvar" class="success" @click="editTask" data-test="saveEdit" />
+      <Button
+        label="Cancelar"
+        @click="displayModal = false"
+      />
+      <Button
+        label="Salvar"
+        data-test="saveEdit"
+        @click="editTask"
+      />
     </template>
   </Dialog>
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import moment from 'moment';
-import { updateTask } from "@/views/todo-list/service/service";
+import Vue from 'vue';
+import { updateTask } from '@/views/todo-list/service/service';
 
 export default Vue.extend({
-  props: {
-    visible: {
-      type: Boolean,
-      default: false,
-    },
-    data: {
-      type: Array,
-      default: [] as any,
-    }
-  },
+  props: ['visible', 'data'],
   data() {
     return {
-      selectedType: "" as string,
-      selectedDate: "" as string,
-      selectedDescription: "" as string,
-      selectedStatus: "" as string,
-      status: ["Impedimento", "Desenvolvimento", "Concluido"] as any,
-      type: ["Sustentação", "Feature"] as any,
+      formData: {
+        type: '',
+        date: '',
+        description: '',
+        status: '',
+      },
+      status: ['Impedimento', 'Desenvolvimento', 'Concluido'] as any,
+      typeTask: ['Sustentação', 'Feature'] as any,
     };
-  },
-  methods: {
-    editTask(): void {
-      if (this.enabledUpdate()) {
-        this.$toast.add({
-          severity: "error",
-          detail:
-            "É necessário editar uma informação para fazermos a atualização da task!!",
-          life: 3000,
-        });
-      } else {
-        updateTask(this.data.id, this.parseEdit())
-          .then((resp: any) => {
-            this.$toast.add({
-              severity: "success",
-              detail: "Task editada com sucesso!!",
-              life: 3000,
-            });
-            this.$emit("update", resp);
-            this.displayModal = false;
-          })
-          .catch(() => {
-            this.$toast.add({
-              severity: "error",
-              detail: "Erro ao editar task!!",
-              life: 3000,
-            });
-          });
-      }
-    },
-    formatDate(date: string): string {
-      return moment(date).format("DD/MM/YYYY");
-    },
-    parseEdit(): object {
-      return {
-        type: this.selectedType,
-        date:  this.data.date !== this.selectedDate ? this.formatDate(this.selectedDate): this.selectedDate,
-        description: this.selectedDescription,
-        status: this.selectedStatus,
-      };
-    },
-    enabledUpdate() {
-      const notChangeType = this.data.type === this.selectedType;
-      const notChangeDate = this.data.date === this.selectedDate;
-      const notChangeDescription =
-        this.data.description === this.selectedDescription;
-      const notChangeStatus = this.data.status === this.selectedStatus;
-
-      if (
-        notChangeType &&
-        notChangeDate &&
-        notChangeDescription &&
-        notChangeStatus
-      ) {
-        return true;
-      } else {
-        return false;
-      }
-    },
-  },
-  watch: {
-    displayModal(newValue: boolean): void {
-      if (newValue) {
-        this.selectedType = this.data.type;
-        this.selectedDate = this.data.date;
-        this.selectedDescription = this.data.description;
-        this.selectedStatus = this.data.status;
-      }
-    },
   },
   computed: {
     displayModal: {
@@ -162,8 +104,67 @@ export default Vue.extend({
         return this.visible;
       },
       set(value: boolean) {
-        this.$emit("update:visible", value);
+        this.$emit('update:visible', value);
       },
+    },
+  },
+  watch: {
+    displayModal(newValue: boolean): void {
+      if (newValue) {
+        this.formData = { ...this.data };
+      }
+    },
+  },
+  methods: {
+    editTask(): void {
+      const id = this.data.id;
+      if (this.enabledUpdate()) {
+        this.$toast.add({
+          severity: 'error',
+          detail:
+            'É necessário editar uma informação para fazermos a atualização da task!!',
+          life: 3000,
+        });
+      } else {
+        updateTask(id, this.parseEdit()).then((resp: any) => {
+          this.$toast.add({
+            severity: 'success',
+            detail: 'Task editada com sucesso!!',
+            life: 3000,
+          });
+          this.$emit('update', resp);
+          this.displayModal = false;
+        });
+      }
+    },
+    parseEdit(): object {
+      const {
+        type, date, description, status,
+      } = this.formData;
+      return {
+        type,
+        date,
+        description,
+        status,
+      };
+    },
+    enabledUpdate() {
+      const data = this.data;
+      const formDate = this.formData;
+      const notChangeType = data.type === formDate.type;
+      const notChangeDate = data.date === formDate.date;
+      const notChangeDescription = data.description === formDate.description;
+      const notChangeStatus = data.status === formDate.status;
+
+      if (
+        notChangeType
+        && notChangeDate
+        && notChangeDescription
+        && notChangeStatus
+      ) {
+        return true;
+      }
+      return false;
     },
   },
 });

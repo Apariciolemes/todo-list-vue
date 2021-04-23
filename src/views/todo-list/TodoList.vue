@@ -1,108 +1,37 @@
 <template>
   <div class="todo-list">
-    <panel>
-      <template #header>
-        <h2>Criar Task</h2>
-      </template>
-      <div class="todo-list__add row py-2">
-        <div class="item col-2">
-          <h5>Tipo</h5>
-          <Dropdown
-            :options="type"
-            class="w-100"
-            v-model="selectedType"
-            data-test="selectedType"
-          >
-            <template #option="slotProps">
-              {{ slotProps.option }}
-            </template>
-            <template #value="slotProps">
-              <template v-if="selectedType">
-                {{ slotProps.value }}
-              </template>
-              <template v-else> Tipo </template>
-            </template>
-          </Dropdown>
-        </div>
-        <div class="item col-3">
-          <h5>Descrição</h5>
-          <InputText
-            data-test="selectedDescription"
-            class="w-100"
-            v-model="selectedDescription"
-            placeholder="Descrição"
-          />
-        </div>
-        <div class="item col-3">
-          <h5>Data</h5>
-          <Calendar
-            data-test="selectedDate"
-            v-model="selectedDate"
-            class="w-100"
-            date-format="dd/mm/yy"
-            placeholder="dd/mm/yy"
-            :show-icon="true"
-          />
-        </div>
-        <div class="item col-2">
-          <h5>Status</h5>
-          <Dropdown
-            :options="status"
-            class="w-100"
-            v-model="selectedStatus"
-            data-test="selectedStatus"
-          >
-            <template #option="slotProps">
-              {{ slotProps.option }}
-            </template>
-            <template #value="slotProps">
-              <template v-if="selectedStatus">
-                {{ slotProps.value }}
-              </template>
-              <template v-else> Status </template>
-            </template>
-          </Dropdown>
-        </div>
-        <div class="col-2">
-          <Button
-            data-test="createTask"
-            label="Criar"
-            @click="createTask"
-            :disabled="enabledcreateTask()"
-          />
-        </div>
-      </div>
-    </panel>
+    <CreateTask :data-table.sync="dataTable" />
     <div class="todo-list__table pb-2">
       <CustomTable
-        :columnsData="columnData"
+        :columns-data="columnData"
         :title="titleTableTodo"
-        :empty="returnDataTableTodo.length > 0"
+        :empty="dataTableTodo.length > 0"
       >
         <template slot="content-filter">
-          <div class="d-flex align-items-center p-4">
-            <RadioButton id="credit" v-model="checkSelected" value="" />
-            <label class="ml-1 mb-0" for="credit"> Pendente(s) </label>
-            <RadioButton
-              class="ml-3"
-              id="credit"
-              v-model="checkSelected"
-              value="Impedimento"
-            />
-            <label class="ml-1 mb-0" for="credit"> Impedimento(s) </label>
-            <RadioButton
-              id="progress"
-              v-model="checkSelected"
-              value="Desenvolvimento"
-              class="ml-3"
-            />
-            <label class="ml-1 mb-0" for="progress"> Desenvolvimento </label>
+          <div class="d-flex align-items-center py-4 px-2">
+            <div
+              v-for="item in contentFilter"
+              :key="`${item}-key`"
+            >
+              <RadioButton
+                :id="item.id"
+                v-model="checkSelected"
+                class="ml-2"
+                :value="item.id"
+              />
+              <label
+                class="ml-1 mb-0"
+                :for="item.id"
+              >
+                {{ `${item.value}(s)` }}
+              </label>
+            </div>
           </div>
         </template>
 
         <template slot="body">
           <tr
-            v-for="(item, index) in returnDataTableTodo"
+            v-for="(item, index) in dataTableTodo"
             :key="`${index} - ${item}`"
           >
             <td class="position-relative">
@@ -124,11 +53,11 @@
             <td>
               <div class="d-flex align-items-center justify-content-center">
                 <div
-                  class="action"
-                  @click="markConclued(item)"
                   v-if="item.status !== 'Concluido'"
                   v-tooltip.top="'Marcar como concluído'"
+                  class="action"
                   :class="{ markConclued: index === 0 }"
+                  @click="markConclued(item)"
                 >
                   <font-awesome-icon
                     icon="check-square"
@@ -136,21 +65,27 @@
                   />
                 </div>
                 <div
+                  v-tooltip.top="'Remover Task'"
                   :class="{ removeTask: index === 0 }"
                   class="action"
                   @click="removeTask(item)"
-                  v-tooltip.top="'Remover Task'"
                 >
-                  <font-awesome-icon icon="trash-alt" class="mx-2 trash" />
+                  <font-awesome-icon
+                    icon="trash-alt"
+                    class="mx-2 trash"
+                  />
                 </div>
                 <div
-                  class="action"
-                  :class="{ editTask: index === 0 }"
-                  v-tooltip.top="'Editar Task'"
-                  @click="editDocument(item)"
                   v-if="item.status !== 'Concluido'"
+                  v-tooltip.top="'Editar Task'"
+                  :class="{ editTask: index === 0 }"
+                  class="action"
+                  @click="editDocument(item)"
                 >
-                  <font-awesome-icon icon="edit" class="mx-2" />
+                  <font-awesome-icon
+                    icon="edit"
+                    class="mx-2"
+                  />
                 </div>
               </div>
             </td>
@@ -160,14 +95,14 @@
     </div>
     <div class="todo-list__table pb-2">
       <CustomTable
-        :columnsData="columnData"
+        :columns-data="columnData"
         :title="titleTableConclued"
-        :showFilter="false"
-        :empty="returnDataTableConclued.length > 0"
+        :show-filter="false"
+        :empty="dataTableConclued.length > 0"
       >
         <template slot="body">
           <tr
-            v-for="(item, index) in returnDataTableConclued"
+            v-for="(item, index) in dataTableConclued"
             :key="`${index} - ${item}`"
           >
             <td class="position-relative">
@@ -188,26 +123,26 @@
             </td>
             <td>
               <div
+                v-tooltip.top="'Remover Task'"
                 class="action"
                 @click="removeTask(item)"
-                v-tooltip.top="'Remover Task'"
               >
-                <font-awesome-icon icon="trash-alt" class="mx-2 trash" />
+                <font-awesome-icon
+                  icon="trash-alt"
+                  class="mx-2 trash"
+                />
               </div>
             </td>
           </tr>
         </template>
       </CustomTable>
     </div>
-    <div
-      class="todo-list__buttons pb-5"
-      v-if="returnDataTableConclued.length > 0"
-    >
-      <hr />
+    <div class="todo-list__buttons pb-5">
+      <hr>
       <Button
         label="Limpar task(s)"
-        class="danger removeAllTask"
-        @click="removeAllConclued"
+        class="remove removeAllTask"
+        @click="removeAll"
       />
     </div>
     <EditTask
@@ -219,44 +154,46 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable */
 import Vue from "vue";
-import moment from "moment";
+import { format } from "date-fns";
 import CustomTable from "@/components/custom-table/CustomTable.vue";
-import {
-  getTask,
-  addTask,
-  deleteTask,
-  editStatus,
-} from "./service/service";
+import { getTask, deleteTask, editStatus } from "@/views/todo-list/service/service";
+//@ts-ignore
+import CreateTask from "@/components/createTask/CreateTask.vue";
 import EditTask from "@/components/editTask/EditTask.vue";
+
 export default Vue.extend({
-  components: { CustomTable, EditTask },
-  mounted() {
-    getTask().then((resp) => {
-      this.dataTable = resp;
-    });
-  },
+  components: { CustomTable, EditTask, CreateTask },
   data() {
     return {
-      dataTable: [] as any,
-      titleTableTodo: "Task(s) - a fazer" as string,
-      titleTableConclued: "Task(s) - concluida" as string,
-      checkSelected: "" as string,
-      selectedType: "" as string,
-      selectedDate: "" as string,
-      selectedDescription: "" as string,
-      selectedStatus: "" as string,
-      itemEdit: [] as any,
-      visible: false as boolean,
+      dataTable: [] as Array<any>,
+      contentFilter: [
+        {
+          id: "credit",
+          value: "Pendente",
+        },
+        {
+          id: "pending",
+          value: "Impedimento",
+        },
+        {
+          id: "progress",
+          value: "Desenvolvimento",
+        },
+      ],
+      titleTableTodo: "Task(s) - a fazer",
+      titleTableConclued: "Task(s) - concluida",
+      checkSelected: "",
+      itemEdit: [],
+      visible: false,
       columnData: {
-        columnsToShow: ["Status", "Tipo", "Descrição", "Data", ""] as any,
+        columnsToShow: ["Status", "Tipo", "Descrição", "Data", ""],
       },
-      status: ["Impedimento", "Desenvolvimento", "Concluido"] as any,
-      type: ["Sustentação", "Feature"] as any,
     };
   },
   computed: {
-    returnDataTableTodo(): any {
+    dataTableTodo(): any {
       if (this.checkSelected) {
         const resultFilter = this.dataTable.filter(
           (item: any) => this.checkSelected === item.status
@@ -265,7 +202,7 @@ export default Vue.extend({
       }
       return this.dataTable.filter((item: any) => item.status !== "Concluido");
     },
-    returnDataTableConclued(): any {
+    dataTableConclued(): any {
       return this.dataTable.filter((item: any) => item.status === "Concluido");
     },
   },
@@ -279,29 +216,30 @@ export default Vue.extend({
       this.titleTableTodo = status[value.toLowerCase()];
     },
   },
+  mounted() {
+    getTask().then((resp: any) => {
+      this.dataTable = resp.map((item: any) => item);
+    });
+  },
   methods: {
     updateDataTable(item: any) {
-      const indexTask = this.dataTable.findIndex(
+      const indexTask: any = this.dataTable.findIndex(
         (task: any) => task.id === item.id
       );
       this.dataTable.splice(indexTask, 1, item);
     },
-    removeAllConclued() {
-      const filterConclued = this.dataTable.filter(
-        (item: any) => item.status === "Concluido"
-      );
-      filterConclued.forEach((element: any) => {
-        const indexConclued = this.dataTable.findIndex(
-          (item: any) => item.id === element.id
-        );
-        this.dataTable.splice(indexConclued, 1);
-        deleteTask(element.id);
+    removeAll() {
+      this.dataTable.forEach((item: any) => {
+        deleteTask(item.id);
       });
-      this.$toast.add({
-        severity: "success",
-        detail: "Todas as task(s) concluidas foram removidas!!",
-        life: 3000,
-      });
+      this.dataTable = [];
+      if (this.dataTable.length < 1) {
+        this.$toast.add({
+          severity: "success",
+          detail: "Todas as task(s) concluidas foram removidas!!",
+          life: 3000,
+        });
+      }
     },
     editDocument(task: any): void {
       this.visible = true;
@@ -311,99 +249,39 @@ export default Vue.extend({
       const indexTask = this.dataTable.findIndex(
         (item: any) => item.id === task.id
       );
-      editStatus(task.id, { status: "Concluido" })
-        .then(() => {
-          this.dataTable[indexTask].status = "Concluido";
-          this.$toast.add({
-            severity: "success",
-            detail: "Task movida para o status concluído!!",
-            life: 3000,
-          });
-        })
-        .catch(() => {
-          this.$toast.add({
-            severity: "error",
-            detail: "Erro ao mudar status da task!!",
-            life: 3000,
-          });
+      editStatus(task.id, { status: "Concluido" }).then(() => {
+        this.dataTable[indexTask].status = "Concluido";
+        this.$toast.add({
+          severity: "success",
+          detail: "Task movida para concluído!!",
+          life: 3000,
         });
+      });
     },
-    returnColorStatus(item: any): any {
+    returnColorStatus(item: any) {
+      const status = item.status.toLowerCase();
       const colorsStatus: any = {
         impedimento: "status-error span-status",
         desenvolvimento: " status-processing span-status",
         concluido: "status-done span-status",
       };
-      const color = colorsStatus[item.status.toLowerCase()];
-      return color;
+      return colorsStatus[status];
     },
-    enabledcreateTask(): boolean {
-      if (
-        this.selectedDate &&
-        this.selectedType &&
-        this.selectedDescription &&
-        this.selectedStatus
-      ) {
-        return false;
-      }
-      return true;
-    },
-    formatDate(date: string): string {
-      return moment(date).format("DD/MM/YYYY");
-    },
-    clear(): void {
-      this.selectedType = "";
-      this.selectedDate = "";
-      this.selectedDescription = "";
-      this.selectedStatus = "";
-    },
-    createTask(): void {
-      addTask(this.parseTask())
-        .then((resp: object) => {
-          this.dataTable.push(resp);
-          this.$toast.add({
-            severity: "success",
-            detail: "Task adicionado com sucesso!!",
-            life: 3000,
-          });
-          this.clear();
-        })
-        .catch(() => {
-          this.$toast.add({
-            severity: "error",
-            detail: "Erro ao adicionar task!!",
-            life: 3000,
-          });
-        });
+    formatDate(date: string | Date) {
+      return format(new Date(date), "dd/MM/yyyy");
     },
     removeTask(task: any): void {
       const indexTask: number = this.dataTable.findIndex(
         (item: any) => item.id === task.id
       );
-      deleteTask(task.id)
-        .then(() => {
-          this.dataTable.splice(indexTask, 1);
-          this.$toast.add({
-            severity: "success",
-            detail: "Task removida com sucesso!!",
-            life: 3000,
-          });
-        })
-        .catch(() => {
-          this.$toast.add({
-            severity: "error",
-            detail: "Erro ao adicionar task!!",
-            life: 3000,
-          });
+      deleteTask(task.id).then(() => {
+        this.dataTable.splice(indexTask, 1);
+        this.$toast.add({
+          severity: "success",
+          detail: "Task removida com sucesso!!",
+          life: 3000,
         });
-    },
-    parseTask(): object {
-      return {
-        type: this.selectedType,
-        description: this.selectedDescription,
-        date: this.formatDate(this.selectedDate),
-        status: this.selectedStatus,
-      };
+      });
     },
   },
 });
@@ -413,16 +291,6 @@ export default Vue.extend({
 .todo-list {
   h2 {
     font-family: "SF Pro Display Bold";
-  }
-  &__add {
-    display: flex;
-    align-items: flex-end;
-    .item {
-      h5 {
-        font-size: 15px;
-        font-family: "SF Pro Display Medium";
-      }
-    }
   }
   &__table {
     .check-done {
@@ -452,6 +320,9 @@ export default Vue.extend({
     display: flex;
     align-items: center;
     justify-content: end;
+    .remove {
+      background: #d54545;
+    }
   }
 }
 </style>

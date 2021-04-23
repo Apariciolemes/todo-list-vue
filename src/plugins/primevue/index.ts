@@ -11,7 +11,7 @@ import InputText from 'primevue/inputtext';
 import Panel from 'primevue/panel';
 import Calendar from 'primevue/calendar';
 import Button from 'primevue/button';
-import RadioButton from 'primevue/radiobutton'
+import RadioButton from 'primevue/radiobutton';
 import Toast from 'primevue/toast';
 import ToastService from 'primevue/toastservice';
 import Tooltip from 'primevue/tooltip';

@@ -1,25 +1,25 @@
-import Vue from 'vue'
-import VueRouter, { RouteConfig } from 'vue-router'
+/* eslint-disable */
+import Vue from 'vue';
+import VueRouter, { RouteConfig } from 'vue-router';
 import TodoList from '@/views/todo-list/TodoList.vue';
-import Author from '@/views/author/Author.vue';
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
-    {
-        path: '/',
-        name: 'Home',
-        component: TodoList,
-    },
-    {
-        path: '/author',
-        name: 'Author',
-        component:  Author,
-    }
-]
+	{
+		path: '/',
+		name: 'Home',
+		component: TodoList,
+	},
+	{
+		path: '/author',
+		name: 'Author',
+		component: () => import(/* webpackChunkName: "author */ '@/views/author/Author.vue'),
+	}
+];
 
 const router = new VueRouter({
-    routes
-})
+	routes,
+});
 
-export default router
+export default router;

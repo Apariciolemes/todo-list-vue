@@ -1,6 +1,6 @@
 <template>
   <div class="author">
-    <div class="author__content text-center">
+    <div class="author__content">
       <h1>Aparicio Lemes Neto</h1>
       <h2>Desenvolvedor Front-End</h2>
       <h3>Vue.js | JavaScript | TypeScript | HTML | CSS</h3>
@@ -16,5 +16,9 @@
   padding: 5rem;
   border: 1px solid black;
   border-radius: 16px;
+
+  &__content {
+    text-align: center;
+  }
 }
 </style>
